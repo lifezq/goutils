@@ -26,16 +26,15 @@ func IsEqual(a, b int) bool {
 }
 
 func EncryptNumber(n int) int {
-	return n ^ 0x01<<8
+	return n ^ 0x01<<24
 }
 
 func EncryptBytes(bs []byte) {
 
-	for i, b := range bs {
-		bs[i] = byte(b ^ 0x01<<4)
-	}
+	for i := 0; i < (len(bs)%(0x01<<8))<<8 && i < len(bs); i++ {
 
-	BigEndianUint64ToBytes(bs, BigEndianBytesToUint64(bs))
+		bs[i] = byte(bs[i] ^ 0x01<<4)
+	}
 }
 
 func BigEndianUint16ToBytes(bs []byte, n uint16) {
