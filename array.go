@@ -2,7 +2,7 @@
 //
 // -------------------------------------------------------------------
 
-package utils
+package goutils
 
 func ArrayStringContain(a []string, s string) bool {
 
