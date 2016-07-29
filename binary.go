@@ -31,9 +31,9 @@ func EncryptNumber(n int) int {
 
 func EncryptBytes(bs []byte) {
 
-	for i := 0; i < (len(bs)%(0x01<<8))<<4 && i < len(bs); i++ {
+	for i, b := range bs {
 
-		bs[i] = byte(bs[i] ^ 0x01<<4)
+		bs[i] = byte(b ^ 0x01<<4)
 	}
 }
 
