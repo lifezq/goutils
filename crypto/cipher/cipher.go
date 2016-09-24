@@ -12,14 +12,14 @@ import (
 var (
 	secret_key = []byte{
 		0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80,
-		0x21, 0x22, 0x24, 0x28, 0x20, 0x22, 0x42, 0x82,
+		0x29, 0x2a, 0x2b, 0x2c, 0x2e, 0x2f, 0x42, 0x82,
 		0xa8, 0xb9, 0xca, 0xdb, 0xec, 0xfd, 0x5e, 0x6f,
 	}
 
 	cipher_block, block_err = aes.NewCipher(secret_key)
 )
 
-func CBCEncrypter(plaintext []byte) (string, error) {
+func CBCEncrypt(plaintext []byte) (string, error) {
 
 	if block_err != nil {
 		return "", block_err
@@ -51,7 +51,7 @@ func CBCEncrypter(plaintext []byte) (string, error) {
 	return fmt.Sprintf("%x", ciphertext), nil
 }
 
-func CBCDecrypter(encrypted string) (string, error) {
+func CBCDecrypt(encrypted string) (string, error) {
 
 	if block_err != nil {
 		return "", block_err
@@ -85,6 +85,58 @@ func CBCDecrypter(encrypted string) (string, error) {
 	// critical to note that ciphertexts must be authenticated (i.e. by
 	// using crypto/hmac) before being decrypted in order to avoid creating
 	// a padding oracle.
+
+	return fmt.Sprintf("%s", ciphertext), nil
+}
+
+func CFBEncrypt(plaintext []byte) (string, error) {
+
+	if block_err != nil {
+		return "", block_err
+	}
+
+	// The IV needs to be unique, but not secure. Therefore it's common to
+	// include it at the beginning of the ciphertext.
+	ciphertext := make([]byte, aes.BlockSize+len(plaintext))
+	iv := ciphertext[:aes.BlockSize]
+	if _, err := io.ReadFull(rand.Reader, iv); err != nil {
+		return "", err
+	}
+
+	stream := cipher.NewCFBEncrypter(cipher_block, iv)
+	stream.XORKeyStream(ciphertext[aes.BlockSize:], plaintext)
+
+	// It's important to remember that ciphertexts must be authenticated
+	// (i.e. by using crypto/hmac) as well as being encrypted in order to
+	// be secure.
+
+	return fmt.Sprintf("%x", ciphertext), nil
+}
+
+func CFBDecrypt(encrypted string) (string, error) {
+
+	if block_err != nil {
+		return "", block_err
+	}
+
+	ciphertext, err := hex.DecodeString(encrypted)
+	if err != nil {
+		return "", err
+	}
+
+	// The IV needs to be unique, but not secure. Therefore it's common to
+	// include it at the beginning of the ciphertext.
+	if len(ciphertext) < aes.BlockSize {
+		return "", fmt.Errorf("ciphertext too short")
+	}
+
+	iv := ciphertext[:aes.BlockSize]
+	ciphertext = ciphertext[aes.BlockSize:]
+
+	stream := cipher.NewCFBDecrypter(cipher_block, iv)
+
+	// XORKeyStream can work in-place if the two arguments are the same.
+	stream.XORKeyStream(ciphertext, ciphertext)
 
 	return fmt.Sprintf("%s", ciphertext), nil
 }
