@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	block_size = 1 << 3
+	block_size = 1 << 2
 	block_iter = 1 << 12
 )
 
@@ -65,7 +65,7 @@ func ScryptGenerateFromPassword(password []byte, klen int) ([]byte, error) {
 		return nil, err
 	}
 
-	dk, err := scrypt.Key(password, salt, block_iter, block_size<<1, block_size>>3, klen-len(salt))
+	dk, err := scrypt.Key(password, salt, block_iter, block_size<<1, block_size>>2, klen-len(salt))
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func ScryptCompareHashAndPassword(hashed []byte, password []byte) bool {
 	}
 
 	salt := hashed[:ilen]
-	dk, err := scrypt.Key(password, salt, block_iter, block_size<<1, block_size>>3, len(hashed)-ilen)
+	dk, err := scrypt.Key(password, salt, block_iter, block_size<<1, block_size>>2, len(hashed)-ilen)
 	if err != nil {
 		return false
 	}
