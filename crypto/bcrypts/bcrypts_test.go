@@ -2,7 +2,7 @@
 //
 // -------------------------------------------------------------------
 
-package bcrypt
+package bcrypts
 
 import (
 	"testing"
