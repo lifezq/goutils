@@ -1,3 +1,7 @@
+// Copyright 2016 The Goutils Author. All Rights Reserved.
+//
+// -------------------------------------------------------------------
+
 package cipher
 
 import (
