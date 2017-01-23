@@ -4,6 +4,40 @@
 
 package goutils
 
+type Array []interface{}
+
+func (a *Array) Contain(val interface{}) bool {
+
+	for _, v := range *a {
+		if v == val {
+			return true
+		}
+	}
+
+	return false
+}
+
+func (a *Array) Insert(val interface{}) {
+
+	for _, v := range *a {
+		if v == val {
+			return
+		}
+	}
+
+	*a = append(*a, val)
+}
+
+func (a *Array) Remove(val interface{}) {
+
+	for i, v := range *a {
+		if v == val {
+			*a = append((*a)[:i], (*a)[i+1:]...)
+			break
+		}
+	}
+}
+
 func ArrayStringContain(a []string, s string) bool {
 
 	for _, v := range a {

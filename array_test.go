@@ -6,6 +6,28 @@ package goutils
 
 import "testing"
 
+func TestArrayInsertRemove(t *testing.T) {
+
+	arr := &Array{}
+	for i := 0; i < 100; i++ {
+		for j := 0; j < 10; j++ {
+			arr.Insert(i)
+		}
+	}
+
+	if len(*arr) != 100 {
+		t.Errorf("ArrayInsert %s", "#01")
+	}
+
+	for i := 0; i < 100; i++ {
+		arr.Remove(i)
+	}
+
+	if len(*arr) != 0 {
+		t.Errorf("ArrayRemove %s", "#02")
+	}
+}
+
 func TestArrayRemoveDup(t *testing.T) {
 
 	for i := 0; i < 100; i++ {
