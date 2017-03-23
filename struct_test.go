@@ -154,3 +154,45 @@ func TestInterface(t *testing.T) {
 
 	t.Logf("TestInterface output:%v", p)
 }
+
+// map
+//
+// $GOROOT/src/pkg/runtime/hashmap.c
+/// struct Hmap
+/// {
+///     uintgo  count;
+///     uint32  flags;
+///     uint32  hash0;
+///     uint8   B;
+///     uint8   keysize;
+///     uint8   valuesize;
+///     uint16  bucketsize;
+///
+///     byte    *buckets;
+///     byte    *oldbuckets;
+///     uintptr nevacuate;
+///
+/// };
+//
+// output:&{842350537056 0 0 0 0 0 0 0 0 0}
+func TestMap(t *testing.T) {
+	var m = make(map[string]int32, 10)
+
+	m["hello_world"] = 123456
+
+	p := (*struct {
+		count      int
+		flags      uint32
+		hash0      uint32
+		B          uint8
+		keysize    uint8
+		valuesize  uint8
+		bucketsize uint16
+
+		buckets    uintptr
+		oldbuckets uintptr
+		nevacuate  uintptr
+	})(unsafe.Pointer(&m))
+
+	t.Logf("output: %v", p)
+}
