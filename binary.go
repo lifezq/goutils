@@ -4,6 +4,15 @@
 
 package goutils
 
+// uint8  = 1<<8-1
+// int8   = 1<<7-1
+// uint16 = 1<<16-1
+// int16  = 1<<15-1
+// uint32 = 1<<32-1
+// int32  = 1<<31-1
+// uint64 = 1<<64-1
+// int64  = 1<<63-1
+
 func ZoreInt(n int) int {
 
 	return n ^ n
