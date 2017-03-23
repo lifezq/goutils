@@ -99,3 +99,59 @@ func TestSlice(t *testing.T) {
 
 	t.Logf("TestSlice output:%v", p)
 }
+
+// interface
+//
+/// struct Type
+/// {
+///     uintptr size;
+///     uint32 hash;
+///     uint8 _unused;
+///     uint8 align;
+///     uint8 fieldAlign;
+///     uint8 kind;
+///     Alg *alg;
+///     void *gc;
+///     String *string;
+///     UncommonType *x;
+///     Type *ptrto;
+/// };
+
+// $GOROOT/src/pkg/runtime/runtime.h
+// defined:
+//
+/// struct Iface
+/// {
+///     Itab*   tab;
+///     void*   data;
+///
+/// };
+///
+/// struct Eface
+/// {
+///     Type*   type;
+///     void*   data;
+///
+/// };
+///
+/// struct  Itab
+/// {
+///     InterfaceType*  inter;
+///     Type*   type;
+///     Itab*   link;
+///     int32   bad;
+///     int32   unused;
+///     void    (*fun[])(void);
+///
+/// };
+// output:&{5143520 842351144400}
+func TestInterface(t *testing.T) {
+	var i interface{} = "Hello world!"
+
+	p := (*struct {
+		tab  uintptr
+		data uintptr
+	})(unsafe.Pointer(&i))
+
+	t.Logf("TestInterface output:%v", p)
+}
