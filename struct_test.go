@@ -102,6 +102,7 @@ func TestSlice(t *testing.T) {
 
 // interface
 //
+// $GOROOT/src/pkg/runtime/type.h
 /// struct Type
 /// {
 ///     uintptr size;
@@ -118,8 +119,6 @@ func TestSlice(t *testing.T) {
 /// };
 
 // $GOROOT/src/pkg/runtime/runtime.h
-// defined:
-//
 /// struct Iface
 /// {
 ///     Itab*   tab;
