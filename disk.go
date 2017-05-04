@@ -58,6 +58,4 @@ func GetRelativePath(p1, p2 string) string {
 	}
 
 	return strings.Repeat("../", len(p2arr)-diff-1) + strings.Join(p1arr[diff:], "/")
-
-	return ""
 }
