@@ -37,3 +37,27 @@ func GetDiskUUIDNumber(name string) string {
 
 	return ""
 }
+
+func GetRelativePath(p1, p2 string) string {
+
+	p1arr := strings.Split(p1, "/")
+	p2arr := strings.Split(p2, "/")
+
+	minLen := len(p1arr)
+	if len(p2arr) < minLen {
+		minLen = len(p2arr)
+	}
+
+	diff := 0
+	for diff <= minLen {
+		if p1arr[diff] != p2arr[diff] {
+			break
+		}
+
+		diff++
+	}
+
+	return strings.Repeat("../", len(p2arr)-diff-1) + strings.Join(p1arr[diff:], "/")
+
+	return ""
+}
