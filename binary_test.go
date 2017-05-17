@@ -29,10 +29,12 @@ func TestIsOddNumber(t *testing.T) {
 
 func TestIsEqual(t *testing.T) {
 
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 10; i++ {
+		for j := 0; j < 10; j++ {
 
-		if !IsEqual(i, i) {
-			t.Errorf("IsEqual error:%d\n", i)
+			if IsEqual(i, j) != (i == j) {
+				t.Errorf("IsEqual error:%d\n", i)
+			}
 		}
 	}
 }
