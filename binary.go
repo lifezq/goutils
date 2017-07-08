@@ -31,7 +31,7 @@ func IsOddNumber(n int) bool {
 // a&b|b == a
 func IsEqual(a, b int) bool {
 
-	return a^b^b == a
+	return ((a | b) & b) == a
 }
 
 func EncryptNumber(n int) int {
