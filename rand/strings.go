@@ -1,4 +1,4 @@
-package hash
+package rand
 
 import (
 	"math/rand"
@@ -10,9 +10,11 @@ const (
 	std64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 )
 
-func Rand32String(length uint8) string {
-
+func init() {
 	rand.Seed(time.Now().UnixNano())
+}
+
+func Rand32String(length uint8) string {
 
 	b := []byte{}
 	for len(b) < int(length) {
@@ -23,8 +25,6 @@ func Rand32String(length uint8) string {
 }
 
 func Rand64String(length uint8) string {
-
-	rand.Seed(time.Now().UnixNano())
 
 	b := []byte{}
 	for len(b) < int(length) {
