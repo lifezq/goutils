@@ -6,8 +6,8 @@ import (
 )
 
 const (
-	encode32Std = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
-	encode64Std = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+	std32 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
+	std64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 )
 
 func Rand32String(length uint8) string {
@@ -16,7 +16,7 @@ func Rand32String(length uint8) string {
 
 	b := []byte{}
 	for len(b) < int(length) {
-		b = append(b, encode32Std[rand.Intn(32)])
+		b = append(b, std32[rand.Intn(32)])
 	}
 
 	return string(b)
@@ -28,7 +28,7 @@ func Rand64String(length uint8) string {
 
 	b := []byte{}
 	for len(b) < int(length) {
-		b = append(b, encode64Std[rand.Intn(64)])
+		b = append(b, std64[rand.Intn(64)])
 	}
 
 	return string(b)
