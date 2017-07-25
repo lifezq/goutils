@@ -1,14 +1,17 @@
 package hash
 
 import (
+	"crypto/hmac"
 	"crypto/md5"
+	"crypto/sha256"
 	"fmt"
+	"io"
 )
 
 func StringHash(s string, length uint16) string {
 
-	if length < 1 {
-		length = 1
+	if length < 4 {
+		length = 4
 	} else if length > 32 {
 		length = 32
 	}
@@ -19,15 +22,15 @@ func StringHash(s string, length uint16) string {
 
 func SaltHash(s, salt string, length uint16) string {
 
-	if length < 1 {
-		length = 1
-	} else if length > 32 {
-		length = 32
+	if length < 8 {
+		length = 8
+	} else if length > 64 {
+		length = 64
 	}
 
-	m := md5.New()
-	m.Write([]byte(salt))
+	h := hmac.New(sha256.New, []byte(salt))
+	io.WriteString(h, s)
 
-	md5_val := fmt.Sprintf("%x", m.Sum([]byte(s)))
+	md5_val := fmt.Sprintf("%x", h.Sum(nil))
 	return md5_val[:length]
 }
