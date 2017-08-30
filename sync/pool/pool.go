@@ -9,11 +9,11 @@ import (
 type Pool struct {
 	mux     sync.Mutex
 	res     chan io.Closer
-	factory func() io.Closer
+	factory func() (io.Closer, error)
 	closed  bool
 }
 
-func New(f func() io.Closer, size uint16) *Pool {
+func New(f func() (io.Closer, error), size uint16) *Pool {
 
 	if size < 1 {
 		return nil
@@ -37,7 +37,7 @@ func (p *Pool) Pull() (io.Closer, error) {
 
 		return r, nil
 	default:
-		return p.factory(), nil
+		return p.factory()
 	}
 }
 
