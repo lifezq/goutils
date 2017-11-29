@@ -38,6 +38,19 @@ func (a *Array) Remove(val interface{}) {
 	}
 }
 
+func (a *Array) ToStringSlice() []string {
+
+	var arr []string
+	for _, v := range *a {
+		switch v.(type) {
+		case string:
+			arr = append(arr, v.(string))
+		}
+	}
+
+	return arr
+}
+
 func ArrayStringContain(a []string, s string) bool {
 
 	for _, v := range a {
