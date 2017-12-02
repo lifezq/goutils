@@ -97,6 +97,29 @@ func ArrayIntRemove(a []int, n int) []int {
 	return a
 }
 
+func ArrayInt64Contain(a []int64, n int64) bool {
+
+	for _, v := range a {
+		if v == n {
+			return true
+		}
+	}
+
+	return false
+}
+
+func ArrayInt64Remove(a []int64, n int64) []int64 {
+
+	for i, v := range a {
+
+		if v == n {
+			a = append(a[:i], a[i+1:]...)
+		}
+	}
+
+	return a
+}
+
 func ArrayRemoveDup(a []interface{}) []interface{} {
 
 	if len(a) <= 1 {
