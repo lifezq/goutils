@@ -11,7 +11,7 @@ import (
 
 const (
 	std32 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
-	std64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+	std64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
 )
 
 func init() {
