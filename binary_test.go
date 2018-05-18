@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func TestZoreInt(t *testing.T) {
+func TestBinaryZoreInt(t *testing.T) {
 
 	for i := 0; i < 1000; i++ {
 		if ZoreInt(i) != 0 {
@@ -18,7 +18,7 @@ func TestZoreInt(t *testing.T) {
 	}
 }
 
-func TestIsOddNumber(t *testing.T) {
+func TestBinaryIsOddNumber(t *testing.T) {
 
 	for i := 0; i < 1000; i += 2 {
 		if !IsOddNumber(i) {
@@ -27,7 +27,7 @@ func TestIsOddNumber(t *testing.T) {
 	}
 }
 
-func TestIsEqual(t *testing.T) {
+func TestBinaryIsEqual(t *testing.T) {
 
 	for i := 0; i < 10; i++ {
 		for j := 0; j < 10; j++ {
@@ -39,7 +39,7 @@ func TestIsEqual(t *testing.T) {
 	}
 }
 
-func TestEncryptNumber(t *testing.T) {
+func TestBinaryEncryptNumber(t *testing.T) {
 
 	for i := 0; i < 1000; i++ {
 		if i != EncryptNumber(EncryptNumber(i)) {
@@ -48,7 +48,7 @@ func TestEncryptNumber(t *testing.T) {
 	}
 }
 
-func TestEncryptBytes(t *testing.T) {
+func TestBinaryEncryptBytes(t *testing.T) {
 
 	s := "test encrypt bytes..."
 
@@ -68,7 +68,7 @@ func TestEncryptBytes(t *testing.T) {
 	}
 }
 
-func TestBigEndianBytesAndUint16(t *testing.T) {
+func TestBinaryBigEndianBytesAndUint16(t *testing.T) {
 
 	bs := make([]byte, 2)
 
@@ -82,7 +82,7 @@ func TestBigEndianBytesAndUint16(t *testing.T) {
 	}
 }
 
-func TestBigEndianBytesAndUint32(t *testing.T) {
+func TestBinaryBigEndianBytesAndUint32(t *testing.T) {
 
 	bs := make([]byte, 4)
 
@@ -96,7 +96,7 @@ func TestBigEndianBytesAndUint32(t *testing.T) {
 	}
 }
 
-func TestBigEndianBytesAndUint64(t *testing.T) {
+func TestBinaryBigEndianBytesAndUint64(t *testing.T) {
 
 	bs := make([]byte, 8)
 

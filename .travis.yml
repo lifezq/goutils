@@ -1,0 +1,27 @@
+sudo: false
+language: go
+go:
+  - 1.9.1
+  - 1.10.1
+  - 1.10.2
+before_install:
+  - go get -v ./...
+  - go get -v golang.org/x/crypto/bcrypt
+  - go get -v github.com/modocache/gover
+  - go get -v golang.org/x/crypto/pbkdf2
+  - go get -v golang.org/x/crypto/scrypt
+  - go get -v github.com/modocache/gover
+  - go get -v github.com/mattn/goveralls
+script:
+  - go fmt ./...
+  - go vet ./...
+  - go test -v -coverprofile=array.coverprofile -run Array 
+  - go test -v -coverprofile=binary.coverprofile -run Binary 
+  - go test -v -coverprofile=disk.coverprofile -run Disk 
+  - go test -v -coverprofile=crypto.coverprofile ./crypto/*
+  - go test -v -coverprofile=encode.coverprofile ./encode 
+  - go test -v -coverprofile=hash.coverprofile ./hash 
+  - go test -v -coverprofile=math.coverprofile ./math 
+  - go test -v -coverprofile=syncpool.coverprofile ./sync/pool 
+  - gover
+  - goveralls -coverprofile=gover.coverprofile -service=travis-ci

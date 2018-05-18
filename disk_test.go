@@ -6,7 +6,7 @@ package goutils
 
 import "testing"
 
-func TestRelativePath(t *testing.T) {
+func TestDiskRelativePath(t *testing.T) {
 
 	var tdata = []struct {
 		p1   string

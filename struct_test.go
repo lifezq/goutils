@@ -44,14 +44,14 @@ import (
 
 // byte
 // output:uint8
-func TestByte(t *testing.T) {
+func TestStructByte(t *testing.T) {
 	var b byte = '0'
 	t.Logf("ByteTest output:%v", reflect.TypeOf(b).Kind())
 }
 
 // rune
 // output:int32
-func TestRune(t *testing.T) {
+func TestStructRune(t *testing.T) {
 	var r rune = 0
 	t.Logf("RuneTest output:%v", reflect.TypeOf(r).Kind())
 }
@@ -65,7 +65,7 @@ func TestRune(t *testing.T) {
 // };
 //
 // output:&{5311546 12} true
-func TestString(t *testing.T) {
+func TestStructString(t *testing.T) {
 	var str string = "Hello world!"
 
 	p := (*struct {
@@ -88,7 +88,7 @@ func TestString(t *testing.T) {
 // };
 //
 // output:&{842350536768 5 10}
-func TestSlice(t *testing.T) {
+func TestStructSlice(t *testing.T) {
 	var slice []int32 = make([]int32, 5, 10)
 
 	p := (*struct {
@@ -144,7 +144,7 @@ func TestSlice(t *testing.T) {
 ///
 /// };
 // output:&{5143520 842351144400}
-func TestInterface(t *testing.T) {
+func TestStructInterface(t *testing.T) {
 	var i interface{} = "Hello world!"
 
 	p := (*struct {
@@ -175,7 +175,7 @@ func TestInterface(t *testing.T) {
 /// };
 //
 // output:&{842350537056 0 0 0 0 0 0 0 0 0}
-func TestMap(t *testing.T) {
+func TestStructMap(t *testing.T) {
 	var m = make(map[string]int32, 10)
 
 	m["hello_world"] = 123456
