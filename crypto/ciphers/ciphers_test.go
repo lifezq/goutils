@@ -55,7 +55,6 @@ func TestCFBEnDecrypter(t *testing.T) {
 	for i := 0; i < 100; i++ {
 
 		plaintext := fmt.Sprintf("%d.%s", i, "some plaintext any length")
-		plaintext = plaintext
 
 		encrypted, err = CFBEncrypt([]byte(plaintext))
 		if err != nil {
