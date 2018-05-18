@@ -18,7 +18,9 @@ script:
   - go test -v -coverprofile=array.coverprofile -run Array 
   - go test -v -coverprofile=binary.coverprofile -run Binary 
   - go test -v -coverprofile=disk.coverprofile -run Disk 
-  - go test -v -coverprofile=crypto.coverprofile ./crypto/*
+  - go test -v -coverprofile=crypto.bcrypts.coverprofile ./crypto/bcrypts
+  - go test -v -coverprofile=crypto.ciphers.coverprofile ./crypto/ciphers
+  - go test -v -coverprofile=crypto.pbkdf2s.coverprofile ./crypto/pbkdf2s
   - go test -v -coverprofile=encode.coverprofile ./encode 
   - go test -v -coverprofile=hash.coverprofile ./hash 
   - go test -v -coverprofile=math.coverprofile ./math 
