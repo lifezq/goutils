@@ -11,17 +11,15 @@ import (
 	mrand "math/rand"
 )
 
-// UUID Version 4
-func UuidGen() string {
-
+// UUID Version 4.
+func UUIDGen() string {
 	var b [16]byte
 	length := len(b)
 	n, err := rand.Read(b[:])
 	if n != length || err != nil {
-
 		for length > 0 {
 			length--
-			b[length] = byte(mrand.Intn(256))
+			b[length] = byte(mrand.Intn(256)) //nolint:gosec // ignore
 		}
 	}
 

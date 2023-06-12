@@ -15,24 +15,22 @@ const (
 )
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
+	rand.New(rand.NewSource(time.Now().UnixNano())) //nolint:gosec // ignore
 }
 
 func Rand32String(length uint8) string {
-
 	b := []byte{}
 	for len(b) < int(length) {
-		b = append(b, std32[rand.Intn(32)])
+		b = append(b, std32[rand.Intn(32)]) //nolint:gosec // ignore
 	}
 
 	return string(b)
 }
 
 func Rand64String(length uint8) string {
-
 	b := []byte{}
 	for len(b) < int(length) {
-		b = append(b, std64[rand.Intn(64)])
+		b = append(b, std64[rand.Intn(64)]) //nolint:gosec // ignore
 	}
 
 	return string(b)

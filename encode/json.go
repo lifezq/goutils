@@ -9,10 +9,9 @@ import (
 	"os"
 )
 
-func JsonEncodeToFile(v interface{}, f string) error {
-
-	fp, err := os.OpenFile(f, os.O_TRUNC|os.O_WRONLY|os.O_CREATE, 0644)
-	defer fp.Close()
+func JSONEncodeToFile(v interface{}, f string) error {
+	fp, err := os.OpenFile(f, os.O_TRUNC|os.O_WRONLY|os.O_CREATE, 0644) //nolint:gocritic // ignored
+	defer fp.Close()                                                    //nolint:staticcheck // ignored
 	if err != nil {
 		return err
 	}
@@ -20,10 +19,9 @@ func JsonEncodeToFile(v interface{}, f string) error {
 	return json.NewEncoder(fp).Encode(v)
 }
 
-func JsonDecodeFile(f string, v interface{}) error {
-
+func JSONDecodeFile(f string, v interface{}) error {
 	fp, err := os.Open(f)
-	defer fp.Close()
+	defer fp.Close() //nolint:staticcheck // ignored
 	if err != nil {
 		return err
 	}

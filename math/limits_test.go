@@ -7,36 +7,35 @@ package math
 import "testing"
 
 func TestLimits(t *testing.T) {
-
-	if int8max := int8((0x01 << 7) ^ (^uint8(0))); INT8_MAX != int8max {
-		t.Errorf("INT8_MAX not match %v-%v\n", INT8_MAX, int8max)
+	if int8max := int8((0x01 << 7) ^ (^uint8(0))); Int8Max != int8max {
+		t.Errorf("Int8Max not match %v-%v\n", Int8Max, int8max)
 	}
 
-	if uint8max := ^uint8(0); UINT8_MAX != uint8max {
-		t.Errorf("UINT8_MAX not match %v-%v\n", UINT8_MAX, uint8max)
+	if uint8max := ^uint8(0); Uint8Max != uint8max {
+		t.Errorf("Uint8Max not match %v-%v\n", Uint8Max, uint8max)
 	}
 
-	if int16max := int16((0x01 << 15) ^ (^uint16(0))); INT16_MAX != int16max {
-		t.Errorf("INT16_MAX not match %v-%v\n", INT16_MAX, int16max)
+	if int16max := int16((0x01 << 15) ^ (^uint16(0))); Int16Max != int16max {
+		t.Errorf("Int16Max not match %v-%v\n", Int16Max, int16max)
 	}
 
-	if uint16max := ^uint16(0); UINT16_MAX != uint16max {
-		t.Errorf("UINT16_MAX not match %v-%v\n", UINT16_MAX, uint16max)
+	if uint16max := ^uint16(0); Uint16Max != uint16max {
+		t.Errorf("Uint16Max not match %v-%v\n", Uint16Max, uint16max)
 	}
 
-	if int32max := int32((0x01 << 31) ^ (^uint32(0))); INT32_MAX != int32max {
-		t.Errorf("INT32_MAX not match %v-%v\n", INT32_MAX, int32max)
+	if int32max := int32((0x01 << 31) ^ (^uint32(0))); Int32Max != int32max {
+		t.Errorf("Int32Max not match %v-%v\n", Int32Max, int32max)
 	}
 
-	if uint32max := ^uint32(0); UINT32_MAX != uint32max {
-		t.Errorf("UINT32_MAX not match %v-%v\n", UINT32_MAX, uint32max)
+	if uint32max := ^uint32(0); Uint32Max != uint32max {
+		t.Errorf("Uint32Max not match %v-%v\n", Uint32Max, uint32max)
 	}
 
-	if int64max := int64((0x01 << 63) ^ (^uint64(0))); INT64_MAX != int64max {
-		t.Errorf("INT64_MAX not match %v-%v\n", INT64_MAX, int64max)
+	if int64max := int64((0x01 << 63) ^ (^uint64(0))); Int64Max != int64max {
+		t.Errorf("Int64Max not match %v-%v\n", Int64Max, int64max)
 	}
 
-	if uint64max := ^uint64(0); UINT64_MAX != uint64max {
-		t.Errorf("UINT64_MAX not match %v-%v\n", UINT64_MAX, uint64max)
+	if uint64max := ^uint64(0); Uint64Max != uint64max {
+		t.Errorf("Uint64Max not match %v-%v\n", Uint64Max, uint64max)
 	}
 }

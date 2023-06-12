@@ -10,7 +10,6 @@ import (
 )
 
 func Base64EncodeToString(src []byte) string {
-
 	buf := make([]byte, base64.StdEncoding.EncodedLen(len(src)))
 	base64.StdEncoding.Encode(buf, src)
 
@@ -18,7 +17,6 @@ func Base64EncodeToString(src []byte) string {
 }
 
 func Base64DecodeString(s string) ([]byte, error) {
-
 	dlen := base64.StdEncoding.DecodedLen(len([]byte(s)))
 	buf := make([]byte, dlen)
 	n, err := base64.StdEncoding.Decode(buf, []byte(s))

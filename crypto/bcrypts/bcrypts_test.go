@@ -11,14 +11,13 @@ import (
 )
 
 func TestGeneratePassword(t *testing.T) {
-
 	password := []byte("abcdefg@123")
 	hashp, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
 	if err != nil {
 		t.Errorf("Generate Password Error : %s\n", err.Error())
 	}
 
-	if err := bcrypt.CompareHashAndPassword(hashp, password); err != nil {
+	if err = bcrypt.CompareHashAndPassword(hashp, password); err != nil {
 		t.Errorf("CompareHashAndPassword Error :%s \n", err.Error())
 	}
 

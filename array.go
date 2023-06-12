@@ -7,7 +7,6 @@ package goutils
 type Array []interface{}
 
 func (a *Array) Contain(val interface{}) bool {
-
 	for _, v := range *a {
 		if v == val {
 			return true
@@ -18,7 +17,6 @@ func (a *Array) Contain(val interface{}) bool {
 }
 
 func (a *Array) Insert(val interface{}) {
-
 	for _, v := range *a {
 		if v == val {
 			return
@@ -29,7 +27,6 @@ func (a *Array) Insert(val interface{}) {
 }
 
 func (a *Array) Remove(val interface{}) {
-
 	for i, v := range *a {
 		if v == val {
 			*a = append((*a)[:i], (*a)[i+1:]...)
@@ -39,12 +36,10 @@ func (a *Array) Remove(val interface{}) {
 }
 
 func (a *Array) ToStringSlice() []string {
-
 	var arr []string
 	for _, v := range *a {
-		switch v.(type) {
-		case string:
-			arr = append(arr, v.(string))
+		if val, ok := v.(string); ok {
+			arr = append(arr, val)
 		}
 	}
 
@@ -52,7 +47,6 @@ func (a *Array) ToStringSlice() []string {
 }
 
 func ArrayStringContain(a []string, s string) bool {
-
 	for _, v := range a {
 		if v == s {
 			return true
@@ -63,9 +57,7 @@ func ArrayStringContain(a []string, s string) bool {
 }
 
 func ArrayStringRemove(a []string, s string) []string {
-
 	for i, v := range a {
-
 		if v == s {
 			a = append(a[:i], a[i+1:]...)
 		}
@@ -75,7 +67,6 @@ func ArrayStringRemove(a []string, s string) []string {
 }
 
 func ArrayIntContain(a []int, n int) bool {
-
 	for _, v := range a {
 		if v == n {
 			return true
@@ -86,9 +77,7 @@ func ArrayIntContain(a []int, n int) bool {
 }
 
 func ArrayIntRemove(a []int, n int) []int {
-
 	for i, v := range a {
-
 		if v == n {
 			a = append(a[:i], a[i+1:]...)
 		}
@@ -98,7 +87,6 @@ func ArrayIntRemove(a []int, n int) []int {
 }
 
 func ArrayInt64Contain(a []int64, n int64) bool {
-
 	for _, v := range a {
 		if v == n {
 			return true
@@ -109,9 +97,7 @@ func ArrayInt64Contain(a []int64, n int64) bool {
 }
 
 func ArrayInt64Remove(a []int64, n int64) []int64 {
-
 	for i, v := range a {
-
 		if v == n {
 			a = append(a[:i], a[i+1:]...)
 		}
@@ -121,17 +107,14 @@ func ArrayInt64Remove(a []int64, n int64) []int64 {
 }
 
 func ArrayRemoveDup(a []interface{}) []interface{} {
-
 	if len(a) <= 1 {
 		return a
 	}
 
-	var set []interface{}
+	var set []interface{} //nolint:prealloc // ignore
 	for _, n := range a {
-
 		found := false
 		for _, v := range set {
-
 			if n == v {
 				found = true
 				break

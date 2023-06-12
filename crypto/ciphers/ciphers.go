@@ -14,19 +14,18 @@ import (
 )
 
 var (
-	secret_key = []byte{
+	secretKey = []byte{
 		0x68, 0x69, 0x2c, 0x20, 0x72, 0x79, 0x61, 0x6e,
 		0x2c, 0x20, 0x6e, 0x65, 0x76, 0x65, 0x72, 0x20,
 		0x67, 0x69, 0x76, 0x65, 0x20, 0x75, 0x70, 0x21,
 	}
 
-	cipher_block, block_err = aes.NewCipher(secret_key)
+	cipherBlock, blockErr = aes.NewCipher(secretKey)
 )
 
 func CBCEncrypt(plaintext []byte) (string, error) {
-
-	if block_err != nil {
-		return "", block_err
+	if blockErr != nil {
+		return "", blockErr
 	}
 
 	// CBC mode works on blocks so plaintexts may need to be padded to the
@@ -45,7 +44,7 @@ func CBCEncrypt(plaintext []byte) (string, error) {
 		return "", err
 	}
 
-	mode := cipher.NewCBCEncrypter(cipher_block, iv)
+	mode := cipher.NewCBCEncrypter(cipherBlock, iv)
 	mode.CryptBlocks(ciphertext[aes.BlockSize:], plaintext)
 
 	// It's important to remember that ciphertexts must be authenticated
@@ -56,9 +55,8 @@ func CBCEncrypt(plaintext []byte) (string, error) {
 }
 
 func CBCDecrypt(encrypted string) (string, error) {
-
-	if block_err != nil {
-		return "", block_err
+	if blockErr != nil {
+		return "", blockErr
 	}
 
 	ciphertext, _ := hex.DecodeString(encrypted)
@@ -77,7 +75,7 @@ func CBCDecrypt(encrypted string) (string, error) {
 		return "", fmt.Errorf("ciphertext is not a multiple of the block size")
 	}
 
-	mode := cipher.NewCBCDecrypter(cipher_block, iv)
+	mode := cipher.NewCBCDecrypter(cipherBlock, iv)
 
 	// CryptBlocks can work in-place if the two arguments are the same.
 	mode.CryptBlocks(ciphertext, ciphertext)
@@ -90,13 +88,12 @@ func CBCDecrypt(encrypted string) (string, error) {
 	// using crypto/hmac) before being decrypted in order to avoid creating
 	// a padding oracle.
 
-	return fmt.Sprintf("%s", ciphertext), nil
+	return fmt.Sprintf("%s", ciphertext), nil //nolint:gosimple // ignore
 }
 
 func CFBEncrypt(plaintext []byte) (string, error) {
-
-	if block_err != nil {
-		return "", block_err
+	if blockErr != nil {
+		return "", blockErr
 	}
 
 	// The IV needs to be unique, but not secure. Therefore it's common to
@@ -107,7 +104,7 @@ func CFBEncrypt(plaintext []byte) (string, error) {
 		return "", err
 	}
 
-	stream := cipher.NewCFBEncrypter(cipher_block, iv)
+	stream := cipher.NewCFBEncrypter(cipherBlock, iv)
 	stream.XORKeyStream(ciphertext[aes.BlockSize:], plaintext)
 
 	// It's important to remember that ciphertexts must be authenticated
@@ -118,9 +115,8 @@ func CFBEncrypt(plaintext []byte) (string, error) {
 }
 
 func CFBDecrypt(encrypted string) (string, error) {
-
-	if block_err != nil {
-		return "", block_err
+	if blockErr != nil {
+		return "", blockErr
 	}
 
 	ciphertext, err := hex.DecodeString(encrypted)
@@ -137,10 +133,10 @@ func CFBDecrypt(encrypted string) (string, error) {
 	iv := ciphertext[:aes.BlockSize]
 	ciphertext = ciphertext[aes.BlockSize:]
 
-	stream := cipher.NewCFBDecrypter(cipher_block, iv)
+	stream := cipher.NewCFBDecrypter(cipherBlock, iv)
 
 	// XORKeyStream can work in-place if the two arguments are the same.
 	stream.XORKeyStream(ciphertext, ciphertext)
 
-	return fmt.Sprintf("%s", ciphertext), nil
+	return fmt.Sprintf("%s", ciphertext), nil //nolint:gosimple // ignore
 }

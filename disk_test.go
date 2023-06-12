@@ -7,7 +7,6 @@ package goutils
 import "testing"
 
 func TestDiskRelativePath(t *testing.T) {
-
 	var tdata = []struct {
 		p1   string
 		p2   string
@@ -41,10 +40,8 @@ func TestDiskRelativePath(t *testing.T) {
 	}
 
 	for _, td := range tdata {
-
 		if want := GetRelativePath(td.p1, td.p2); want != td.want {
 			t.Errorf("want:%s got:%s\n", td.want, want)
 		}
 	}
-
 }

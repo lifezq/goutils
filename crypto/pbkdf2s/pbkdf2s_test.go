@@ -12,9 +12,7 @@ import (
 )
 
 func TestPbkdf2GeneratePassword(t *testing.T) {
-
 	for i := 0; i < 10; i++ {
-
 		password := []byte(fmt.Sprintf("%d.%s", i, "abcdef@123"))
 
 		h, err := GenerateFromPassword(password, 32)
@@ -28,13 +26,10 @@ func TestPbkdf2GeneratePassword(t *testing.T) {
 
 		t.Logf("Pbkdf2 hashed len:%d hash:%v hex:%s\n", len(h), h, encode.HexEncodeToString(h))
 	}
-
 }
 
 func TestScryptGeneratePassword(t *testing.T) {
-
 	for i := 0; i < 10; i++ {
-
 		password := []byte(fmt.Sprintf("%d.%s", i, "abcdef@123"))
 
 		h, err := ScryptGenerateFromPassword(password, 32)
@@ -48,5 +43,4 @@ func TestScryptGeneratePassword(t *testing.T) {
 
 		t.Logf("Scrypt hashed len:%d hash:%v hex:%s\n", len(h), h, encode.HexEncodeToString(h))
 	}
-
 }

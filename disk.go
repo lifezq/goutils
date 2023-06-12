@@ -11,7 +11,6 @@ import (
 )
 
 func GetDiskUUIDNumber(name string) string {
-
 	n := fmt.Sprintf("--name=%s", name)
 	udevadm, err := exec.LookPath("/sbin/udevadm")
 	if err != nil {
@@ -25,7 +24,6 @@ func GetDiskUUIDNumber(name string) string {
 
 	lines := strings.Split(string(out), "\n")
 	for _, line := range lines {
-
 		values := strings.Split(line, "=")
 		if len(values) < 2 || values[0] != "ID_FS_UUID" {
 			// only get ID_FS_UUID
@@ -39,7 +37,6 @@ func GetDiskUUIDNumber(name string) string {
 }
 
 func GetRelativePath(p1, p2 string) string {
-
 	p1arr := strings.Split(p1, "/")
 	p2arr := strings.Split(p2, "/")
 

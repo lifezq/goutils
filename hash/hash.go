@@ -13,19 +13,17 @@ import (
 )
 
 func StringHash(s string, length uint16) string {
-
 	if length < 4 {
 		length = 4
 	} else if length > 32 {
 		length = 32
 	}
 
-	md5_val := fmt.Sprintf("%x", md5.Sum([]byte(s)))
-	return md5_val[:length]
+	md5Val := fmt.Sprintf("%x", md5.Sum([]byte(s)))
+	return md5Val[:length]
 }
 
 func SaltHash(s, salt string, length uint16) string {
-
 	if length < 8 {
 		length = 8
 	} else if length > 64 {
@@ -33,8 +31,11 @@ func SaltHash(s, salt string, length uint16) string {
 	}
 
 	h := hmac.New(sha256.New, []byte(salt))
-	io.WriteString(h, s)
+	_, err := io.WriteString(h, s)
+	if err != nil {
+		return ""
+	}
 
-	md5_val := fmt.Sprintf("%x", h.Sum(nil))
-	return md5_val[:length]
+	md5Val := fmt.Sprintf("%x", h.Sum(nil))
+	return md5Val[:length]
 }

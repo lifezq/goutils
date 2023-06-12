@@ -14,24 +14,33 @@ package goutils
 // int64  = 1<<63-1
 
 func ZoreInt(n int) int {
-
-	return n ^ n
+	return n ^ n //nolint:gocritic,staticcheck	// ignore
 }
 
 func IsOddNumber(n int) bool {
-
-	if n&0x01 == 0x01 {
-		return false
-	}
-
-	return true
+	return n&0x01 != 0x01
 }
 
 // a|b&b == a
-// a&b|b == a
+// a&b|b == a.
 func IsEqual(a, b int) bool {
-
 	return ((a | b) & b) == a
+}
+
+func BoolToInt8(b bool) int8 {
+	if b {
+		return 1
+	}
+	return 0
+}
+
+func Int8ToBool(i int8) *bool {
+	state := false
+	if i == 1 {
+		state = true
+		return &state
+	}
+	return &state
 }
 
 func EncryptNumber(n int) int {
@@ -39,15 +48,12 @@ func EncryptNumber(n int) int {
 }
 
 func EncryptBytes(bs []byte) {
-
 	for i, b := range bs {
-
-		bs[i] = byte(b ^ 0x01<<4)
+		bs[i] = b ^ 0x01<<4
 	}
 }
 
 func BigEndianUint16ToBytes(bs []byte, n uint16) {
-
 	if cap(bs) < 2 {
 		return
 	}
@@ -57,7 +63,6 @@ func BigEndianUint16ToBytes(bs []byte, n uint16) {
 }
 
 func BigEndianBytesToUint16(bs []byte) uint16 {
-
 	if cap(bs) < 2 {
 		return 0
 	}
@@ -66,7 +71,6 @@ func BigEndianBytesToUint16(bs []byte) uint16 {
 }
 
 func BigEndianUint32ToBytes(bs []byte, n uint32) {
-
 	if cap(bs) < 4 {
 		return
 	}
@@ -78,7 +82,6 @@ func BigEndianUint32ToBytes(bs []byte, n uint32) {
 }
 
 func BigEndianBytesToUint32(bs []byte) uint32 {
-
 	if cap(bs) < 4 {
 		return 0
 	}
@@ -87,7 +90,6 @@ func BigEndianBytesToUint32(bs []byte) uint32 {
 }
 
 func BigEndianUint64ToBytes(bs []byte, n uint64) {
-
 	if cap(bs) < 8 {
 		return
 	}
@@ -100,11 +102,9 @@ func BigEndianUint64ToBytes(bs []byte, n uint64) {
 	bs[5] = byte(n >> 16)
 	bs[6] = byte(n >> 8)
 	bs[7] = byte(n)
-
 }
 
 func BigEndianBytesToUint64(bs []byte) uint64 {
-
 	if cap(bs) < 8 {
 		return 0
 	}

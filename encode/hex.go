@@ -16,7 +16,6 @@ func HexEncodeToString(b []byte) string {
 }
 
 func HexDecodeString(s string) ([]byte, error) {
-
 	var (
 		src  = []byte(s)
 		dlen = hex.DecodedLen(len(src))

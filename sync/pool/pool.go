@@ -11,14 +11,13 @@ import (
 )
 
 type Pool struct {
-	mux     sync.Mutex
 	res     chan io.Closer
 	factory func() (io.Closer, error)
+	mux     sync.Mutex
 	closed  bool
 }
 
 func New(f func() (io.Closer, error), size uint16) *Pool {
-
 	if size < 1 {
 		return nil
 	}

@@ -16,13 +16,12 @@ import (
 )
 
 const (
-	block_size = 1 << 2
-	block_iter = 1 << 12
+	blockSize = 1 << 2
+	blockIter = 1 << 12
 )
 
 func GenerateFromPassword(password []byte, klen int) ([]byte, error) {
-
-	if len(password) < block_size {
+	if len(password) < blockSize {
 		return nil, fmt.Errorf("Too short")
 	}
 
@@ -31,32 +30,27 @@ func GenerateFromPassword(password []byte, klen int) ([]byte, error) {
 		return nil, err
 	}
 
-	return append(salt, pbkdf2.Key(password, salt, block_iter, klen-len(salt), sha256.New)...), nil
+	return append(salt, pbkdf2.Key(password, salt, blockIter, klen-len(salt), sha256.New)...), nil
 }
 
-func CompareHashAndPassword(hashed []byte, password []byte) bool {
-
-	if len(password) < block_size {
+func CompareHashAndPassword(hashed, password []byte) bool {
+	if len(password) < blockSize {
 		return false
 	}
 
-	ilen := block_size + len(password)%block_size
+	ilen := blockSize + len(password)%blockSize
 	if len(hashed) <= ilen {
 		return false
 	}
 
 	salt := hashed[:ilen]
-	phash := append(salt, pbkdf2.Key(password, salt, block_iter, len(hashed)-ilen, sha256.New)...)
-	if !bytes.Equal(hashed, phash) {
-		return false
-	}
-
-	return true
+	phash := append(salt, pbkdf2.Key(password, salt, blockIter, //nolint:gocritic // ignore
+		len(hashed)-ilen, sha256.New)...)
+	return bytes.Equal(hashed, phash)
 }
 
 func ScryptGenerateFromPassword(password []byte, klen int) ([]byte, error) {
-
-	if len(password) < block_size {
+	if len(password) < blockSize {
 		return nil, fmt.Errorf("Too short")
 	}
 
@@ -65,7 +59,7 @@ func ScryptGenerateFromPassword(password []byte, klen int) ([]byte, error) {
 		return nil, err
 	}
 
-	dk, err := scrypt.Key(password, salt, block_iter, block_size<<1, block_size>>2, klen-len(salt))
+	dk, err := scrypt.Key(password, salt, blockIter, blockSize<<1, blockSize>>2, klen-len(salt))
 	if err != nil {
 		return nil, err
 	}
@@ -73,34 +67,28 @@ func ScryptGenerateFromPassword(password []byte, klen int) ([]byte, error) {
 	return append(salt, dk...), nil
 }
 
-func ScryptCompareHashAndPassword(hashed []byte, password []byte) bool {
-
-	if len(password) < block_size {
+func ScryptCompareHashAndPassword(hashed, password []byte) bool {
+	if len(password) < blockSize {
 		return false
 	}
 
-	ilen := block_size + len(password)%block_size
+	ilen := blockSize + len(password)%blockSize
 	if len(hashed) <= ilen {
 		return false
 	}
 
 	salt := hashed[:ilen]
-	dk, err := scrypt.Key(password, salt, block_iter, block_size<<1, block_size>>2, len(hashed)-ilen)
+	dk, err := scrypt.Key(password, salt, blockIter, blockSize<<1, blockSize>>2, len(hashed)-ilen)
 	if err != nil {
 		return false
 	}
 
-	phash := append(salt, dk...)
-	if !bytes.Equal(hashed, phash) {
-		return false
-	}
-
-	return true
+	phash := append(salt, dk...) //nolint:gocritic // ignore
+	return bytes.Equal(hashed, phash)
 }
 
 func generateSaltFromPassword(password []byte) ([]byte, error) {
-
-	ilen := block_size + len(password)%block_size
+	ilen := blockSize + len(password)%blockSize
 	salt := make([]byte, ilen)
 
 	n, err := io.ReadFull(rand.Reader, salt)

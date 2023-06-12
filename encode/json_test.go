@@ -23,7 +23,6 @@ var (
 )
 
 func TestCompact(t *testing.T) {
-
 	var (
 		buf = new(bytes.Buffer)
 		src = []byte("{\"name\":    \" name_string  \"  , \"value\" : \" value_string \"  }")
@@ -37,7 +36,6 @@ func TestCompact(t *testing.T) {
 }
 
 func TestHTMLEscape(t *testing.T) {
-
 	var (
 		buf bytes.Buffer
 		src = []byte(`
@@ -56,7 +54,6 @@ func TestHTMLEscape(t *testing.T) {
 }
 
 func TestIndent(t *testing.T) {
-
 	src, err := json.Marshal(card)
 	if err != nil {
 		t.Errorf("Marshal Error:%s\n", err.Error())
@@ -71,7 +68,6 @@ func TestIndent(t *testing.T) {
 }
 
 func TestMarshalIndent(t *testing.T) {
-
 	b, err := json.Marshal(card)
 	if err != nil {
 		t.Errorf("Marshal Error:%s\n", err.Error())
@@ -88,7 +84,6 @@ func TestMarshalIndent(t *testing.T) {
 }
 
 func TestJsonEncode(t *testing.T) {
-
 	var buf bytes.Buffer
 	enc := json.NewEncoder(&buf)
 
@@ -100,7 +95,6 @@ func TestJsonEncode(t *testing.T) {
 }
 
 func TestJsonDecode(t *testing.T) {
-
 	b, err := json.Marshal(card)
 	if err != nil {
 		t.Errorf("Marshal Error:%s\n", err.Error())

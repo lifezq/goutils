@@ -7,7 +7,6 @@ package encode
 import "testing"
 
 func TestBase64EncodeAndDecode(t *testing.T) {
-
 	str := "Encode test string..."
 	estr := Base64EncodeToString([]byte(str))
 

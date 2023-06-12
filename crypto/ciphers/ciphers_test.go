@@ -10,7 +10,6 @@ import (
 )
 
 func TestCBCEnDecrypt(t *testing.T) {
-
 	var (
 		encrypted string
 		decrypted string
@@ -18,7 +17,6 @@ func TestCBCEnDecrypt(t *testing.T) {
 	)
 
 	for i := 0; i < 100; i++ {
-
 		plaintext := fmt.Sprintf("%d.%s", i, "exampleplaintext")
 		plaintext = plaintext[:16]
 
@@ -45,7 +43,6 @@ func TestCBCEnDecrypt(t *testing.T) {
 }
 
 func TestCFBEnDecrypter(t *testing.T) {
-
 	var (
 		encrypted string
 		decrypted string
@@ -53,7 +50,6 @@ func TestCFBEnDecrypter(t *testing.T) {
 	)
 
 	for i := 0; i < 100; i++ {
-
 		plaintext := fmt.Sprintf("%d.%s", i, "some plaintext any length")
 
 		encrypted, err = CFBEncrypt([]byte(plaintext))
