@@ -11,27 +11,30 @@ import (
 )
 
 func TestIsFilename(t *testing.T) {
-	data := testings.NewHaveWant("/abc/test", true)
-	if !data.Equal(IsFilename(data.Have.(string))) {
-		t.Error(data.Message)
-	}
-
-	data = testings.NewHaveWant("/abc/test/", false)
-	if !data.Equal(IsFilename(data.Have.(string))) {
-		t.Error(data.Message)
-	}
+	testings.NewEntities(
+		&testings.Entity{
+			Name: "test1",
+			Args: IsFilename("/abc/test"),
+			Want: true,
+		}, &testings.Entity{
+			Name: "test2",
+			Args: IsFilename("/abc/test/"),
+			Want: false,
+		}).Run(t)
 }
 
 func TestGetFilePath(t *testing.T) {
-	data := testings.NewHaveWant("/abc/test/name", "abc/test")
-	if !data.Equal(GetFilePath(data.Have.(string))) {
-		t.Error(data.Message)
-	}
+	testings.NewEntities(&testings.Entity{
+		Name: "test3",
+		Args: GetFilePath("/abc/test/name"),
+		Want: "abc/test",
+	}).Run(t)
 }
 
 func TestValidFilePath(t *testing.T) {
-	data := testings.NewHaveWantMessage("/abc/test/name", true, "not valid file path")
-	if !data.Equal(ValidFilePath(data.Have.(string))) {
-		t.Error(data.Message)
-	}
+	testings.NewEntities(&testings.Entity{
+		Name: "test4",
+		Args: ValidFilePath("/abc/test/name"),
+		Want: true,
+	}).Run(t)
 }

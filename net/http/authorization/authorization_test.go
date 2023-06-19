@@ -12,11 +12,11 @@ import (
 )
 
 func TestGetRequestAuthorization(t *testing.T) {
-	data := testings.NewHaveWant(http.Header{
-		"Authorization": []string{"Bearer X-Auth-Token"},
-	}, "X-Auth-Token")
-
-	if !data.Equal(GetRequestAuthorization(data.Have.(http.Header))) {
-		t.Error("got unexpected authorization")
-	}
+	testings.NewEntities(&testings.Entity{
+		Name: "test",
+		Args: GetRequestAuthorization(http.Header{
+			"Authorization": []string{"Bearer X-Auth-Token"},
+		}),
+		Want: "X-Auth-Token",
+	}).Run(t)
 }
