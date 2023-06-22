@@ -2,23 +2,20 @@ version: build-{build}.{branch}
 
 build: off
 
-clone_folder: /usr/go/src/github.com/lifezq/goutils
-shallow_clone: true
+clone_folder: c:\gopath\src\github.com\lifezq\goutils
 
 environment:
-  GOPATH: /usr/go/
-
-platform:
-  - x64
+  GOPATH: c:\gopath
 
 install:
   - go version
   - go env
   
 before_test:
+  - set PATH=C:\go\bin;%PATH%
+  - set GOROOT=C:\go
   - go vet ./...
 
 test_script:
   - go test ./...
   
-deploy: off
