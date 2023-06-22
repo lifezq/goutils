@@ -3,6 +3,7 @@ version: build-{build}.{branch}
 build: off
 
 clone_folder: /usr/go/src/github.com/lifezq/goutils
+shallow_clone: true
 
 environment:
   GOPATH: /usr/go/
