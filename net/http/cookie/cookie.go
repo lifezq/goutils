@@ -30,6 +30,7 @@ func NewCookieWithDomain(name, value, domain string) *http.Cookie {
 		Path:     "/",
 		Domain:   domain,
 		MaxAge:   defaultMaxAge,
+		Expires:  time.Now().Add(time.Duration(defaultMaxAge) * time.Second),
 		HttpOnly: false,
 	}
 }
@@ -41,6 +42,7 @@ func NewCookieWithDomainAndMaxAge(name, value, domain string, maxAge int) *http.
 		Path:     "/",
 		Domain:   domain,
 		MaxAge:   maxAge,
+		Expires:  time.Now().Add(time.Duration(maxAge) * time.Second),
 		HttpOnly: false,
 	}
 }
