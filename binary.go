@@ -34,13 +34,11 @@ func BoolToInt8(b bool) int8 {
 	return 0
 }
 
-func Int8ToBool(i int8) *bool {
-	state := false
+func Int8ToBool(i int8) bool {
 	if i == 1 {
-		state = true
-		return &state
+		return true
 	}
-	return &state
+	return false
 }
 
 func EncryptNumber(n int) int {

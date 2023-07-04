@@ -49,12 +49,12 @@ func TestBoolToInt8(t *testing.T) {
 
 func TestInt8ToBool(t *testing.T) {
 	i := int8(0)
-	if *Int8ToBool(i) {
+	if Int8ToBool(i) {
 		t.Error("TestInt8ToBool error")
 	}
 
 	i = int8(1)
-	if !*Int8ToBool(i) {
+	if !Int8ToBool(i) {
 		t.Error("TestInt8ToBool error")
 	}
 }
