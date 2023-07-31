@@ -35,10 +35,7 @@ func BoolToInt8(b bool) int8 {
 }
 
 func Int8ToBool(i int8) bool {
-	if i == 1 {
-		return true
-	}
-	return false
+	return i == 1
 }
 
 func EncryptNumber(n int) int {

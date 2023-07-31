@@ -9,6 +9,7 @@ import (
 	"strconv"
 )
 
+//nolint:gosec // ignore
 func DigitalVerificationCode(length int) string {
 	n := ""
 	for i := 0; i < length; i++ {

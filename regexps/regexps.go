@@ -13,22 +13,22 @@ var (
 	UsernamePreg = regexp.MustCompile(`^[a-zA-Z][0-9a-zA-Z_]{5,29}$`)
 )
 
-// CheckDomain 域名检查
+// CheckDomain 域名检查.
 func CheckDomain(domain string) bool {
 	return DomainPreg.MatchString(domain)
 }
 
-// CheckEmail 邮箱检查
+// CheckEmail 邮箱检查.
 func CheckEmail(email string) bool {
 	return EmailPreg.MatchString(email)
 }
 
-// CheckPhone 手机号检查
+// CheckPhone 手机号检查.
 func CheckPhone(phone string) bool {
 	return PhonePreg.MatchString(phone)
 }
 
-// CheckUsername 用户名检查
+// CheckUsername 用户名检查.
 func CheckUsername(username string) bool {
 	return UsernamePreg.MatchString(username)
 }
