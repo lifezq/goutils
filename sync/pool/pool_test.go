@@ -9,14 +9,16 @@ import (
 	"sync"
 	"sync/atomic"
 	"testing"
+	"time"
 )
 
 func TestPool(t *testing.T) {
 	p := New(newConnector, 5)
 
 	w := sync.WaitGroup{}
-	w.Add(10)
-	for i := 0; i < 10; i++ {
+	poolSize := 10
+	w.Add(poolSize)
+	for i := 1; i <= poolSize; i++ {
 		go func() {
 			defer w.Done()
 
@@ -26,10 +28,14 @@ func TestPool(t *testing.T) {
 				return
 			}
 
-			t.Logf("connector id:%v\n", conn.(*Conn).ID)
+			t.Logf("connector id:%v\n", conn.(*Conn).Get())
 
 			p.Push(conn)
 		}()
+
+		if i > poolSize/2 {
+			time.Sleep(time.Millisecond * 10)
+		}
 	}
 
 	w.Wait()
@@ -38,14 +44,14 @@ func TestPool(t *testing.T) {
 }
 
 type Conn struct {
-	ID int32
+	id int32
 }
 
 var ider int32
 
 func newConnector() (io.Closer, error) {
 	return &Conn{
-		ID: atomic.AddInt32(&ider, 1),
+		id: atomic.AddInt32(&ider, 1),
 	}, nil
 }
 
@@ -54,5 +60,5 @@ func (c *Conn) Close() error {
 }
 
 func (c *Conn) Get() int32 {
-	return c.ID
+	return c.id
 }
