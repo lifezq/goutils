@@ -12,7 +12,7 @@ import (
 )
 
 func TestMutex_Lock(t *testing.T) {
-	m := NewMutex()
+	m := New()
 
 	wg := sync.WaitGroup{}
 	for i := 0; i < 10; i++ {

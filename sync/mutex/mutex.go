@@ -8,7 +8,7 @@ import "sync"
 
 type Mutex map[string]*sync.Mutex
 
-func NewMutex() *Mutex {
+func New() *Mutex {
 	m := Mutex(make(map[string]*sync.Mutex))
 	return &m
 }
