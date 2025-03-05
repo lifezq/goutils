@@ -18,6 +18,7 @@ import (
 type Bookmark struct {
 	Title    string
 	URL      string
+	Icon     string
 	Children []Bookmark // For nested folders
 }
 
@@ -101,13 +102,17 @@ func (s *BookmarkService) importBookmark(ctx context.Context, folder *BookmarkFo
 }
 
 // parseBookmark parses a single bookmark and returns the title and URL
-func (s *BookmarkService) parseBookmark(n *html.Node) (string, string) {
-	var title, url string
+func (s *BookmarkService) parseBookmark(n *html.Node) (string, string, string) {
+	var title, url, icon string
 
 	// Search for <A> tag which contains the bookmark information
 	for _, attr := range n.Attr {
 		if strings.ToUpper(attr.Key) == "HREF" {
 			url = attr.Val
+		}
+
+		if strings.ToUpper(attr.Key) == "ICON" {
+			icon = attr.Val
 		}
 	}
 
@@ -118,7 +123,7 @@ func (s *BookmarkService) parseBookmark(n *html.Node) (string, string) {
 		title = n.Parent.FirstChild.FirstChild.Data
 	}
 
-	return title, url
+	return title, url, icon
 }
 
 // parseBookmarks recursively traverses the HTML node tree to extract bookmarks
@@ -129,9 +134,9 @@ func (s *BookmarkService) parseBookmarks(n *html.Node) ([]Bookmark, error) {
 		// Check for <A> element inside <DT> element
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
 			if c.Type == html.ElementNode && strings.ToUpper(c.Data) == "A" {
-				title, url := s.parseBookmark(c)
+				title, url, icon := s.parseBookmark(c)
 				if title != "" && url != "" {
-					bookmarks = append(bookmarks, Bookmark{Title: title, URL: url})
+					bookmarks = append(bookmarks, Bookmark{Title: title, URL: url, Icon: icon})
 				}
 			}
 		}
