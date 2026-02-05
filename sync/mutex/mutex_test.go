@@ -16,15 +16,15 @@ func TestMutex_Lock(t *testing.T) {
 
 	wg := sync.WaitGroup{}
 	for i := 0; i < 10; i++ {
+		wg.Add(1)
 		go func(i int) {
-			wg.Add(1)
+			defer wg.Done()
 			lockKey := "foo"
 			t.Log(fmt.Sprintf("%d.lock...", i))
 			m.Lock(lockKey)
 			t.Log(fmt.Sprintf("%d.unlock successful", i))
 			time.Sleep(time.Second * 2)
 			m.Unlock(lockKey)
-			wg.Done()
 		}(i)
 	}
 
